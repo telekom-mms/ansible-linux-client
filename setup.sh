@@ -7,8 +7,8 @@ sudo apt-get install python3 -y
 
 echo -e "\e[1;31mcreate ansible virtualenv in home dir\e[0m"
 
-python3 -m venv ~/.ansible-test
-source ~/.ansible-test/bin/activate
+python3 -m venv ~/.ansible-venv
+source ~/.ansible-venv/bin/activate
 pip install --upgrade pip
 pip install ansible
 pip install ansible-lint
@@ -20,5 +20,5 @@ if [ ! -f vars/main.yml ]; then
 fi
 
 echo "setup linux client with ansible"
-source ~/.ansible-test/bin/activate
+source ~/.ansible-venv/bin/activate
 ansible-playbook playbooks/setup.yml --diff -v -e @vars/main.yml
