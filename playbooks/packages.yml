@@ -1,0 +1,11 @@
+---
+- hosts: localhost
+  become: true
+  become_method: sudo
+  tasks:
+    - name: install a list of packages
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      loop: "{{ packages }}"

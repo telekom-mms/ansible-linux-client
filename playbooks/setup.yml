@@ -1,7 +1,16 @@
 ---
-- hosts: localhost
-  connection: local
-  tasks:
-    - name: say hello world
-      debug:
-        msg: "Hello World!"
+- name: include vscode playbook
+  ansible.builtin.import_playbook: vscode.yml
+  when: install_vscode | bool | default(false)
+
+- name: include zsh playbook
+  ansible.builtin.import_playbook: zsh.yml
+  when: install_zsh | bool | default(false)
+
+- name: include ferdium playbook
+  ansible.builtin.import_playbook: ferdium.yml
+  when: install_ferdium | bool | default(false)
+
+- name: include packages playbook
+  ansible.builtin.import_playbook: packages.yml
+  when: packages is defined

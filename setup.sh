@@ -1,20 +1,24 @@
 #!/bin/bash
 
-# set up ansible in a virtualenv
-set -eux;
-    sudo apt-get update > /dev/null
-    sudo apt-get install python3 -y > /dev/null
+echo -e "\e[1;31minstall python3 to create a virtualenv\e[0m"
 
-echo "create ansible virtualenv in home dir"
-set -eux;
-    python3 -m venv ~/.ansible-test
-    source ~/.ansible-test/bin/activate
-    pip install --upgrade pip
-    pip install ansible
-    pip install ansible-lint
-    pip install yamllint
+sudo apt-get update
+sudo apt-get install python3 -y
+
+echo -e "\e[1;31mcreate ansible virtualenv in home dir\e[0m"
+
+python3 -m venv ~/.ansible-test
+source ~/.ansible-test/bin/activate
+pip install --upgrade pip
+pip install ansible
+pip install ansible-lint
+pip install yamllint
+
+if [ ! -f vars/main.yml ]; then
+    echo -e "\e[1;31mPlease define your custom configuration at $(pwd)/vars/main.yml\e[0m"
+    exit 2
+fi
 
 echo "setup linux client with ansible"
-set -eux;
-    source ~/.ansible-test/bin/activate
-    ansible-playbook playbooks/setup.yml --diff -v
+source ~/.ansible-test/bin/activate
+ansible-playbook playbooks/setup.yml --diff -v -e @vars/main.yml
