@@ -8,3 +8,6 @@ install_docker: false
 # install a list of packages
 packages:
   - git
+
+# activate wakemeops - https://docs.wakemeops.com/packages/
+packages_activate_wakemeops_repo: false
