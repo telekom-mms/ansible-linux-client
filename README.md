@@ -34,6 +34,7 @@ chmod +x setup.sh
 | install_vscode | no | false | install vscode
 | install_zsh | no | false | install zsh
 | install_ferdium | no | false | install latest release of ferdium
+| install_docker | no | false | install docker
 | packages | no | ["git"] | install a list of packages
 
 ## Author Information

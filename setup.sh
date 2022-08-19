@@ -21,4 +21,4 @@ fi
 
 echo "setup linux client with ansible"
 source ~/.ansible-venv/bin/activate
-ansible-playbook playbooks/setup.yml --diff -v -e @vars/main.yml
+ansible-playbook playbooks/setup.yml --diff -v -e @defaults/main.yml -e @vars/main.yml
