@@ -3,6 +3,7 @@
 install_vscode: false
 install_ferdium: false
 install_zsh: false
+install_docker: false
 
 # install a list of packages
 packages:

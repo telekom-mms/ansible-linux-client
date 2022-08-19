@@ -1,0 +1,60 @@
+---
+- hosts: localhost
+  become: true
+  become_method: sudo
+  tasks:
+    - name: install gpg
+      ansible.builtin.apt:
+        name: gpg
+        state: present
+        update_cache: true
+
+    - name: download docker {{ ansible_distribution | lower }}/gpg
+      ansible.builtin.get_url:
+        url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+        dest: "/tmp/{{ ansible_distribution | lower }}.docker.gpg"
+        mode: 0644
+
+    - name: extract {{ ansible_distribution | lower }}/gpg to docker.gpg
+      ansible.builtin.shell: >
+        set -o pipefail |
+        /usr/bin/cat /tmp/{{ ansible_distribution | lower }}.docker.gpg | gpg --dearmor > /tmp/docker.gpg
+      register: result
+      changed_when: false
+      failed_when: result.rc != 0
+
+    - name: import docker.gpg to /etc/apt/keyrings/docker.gpg
+      ansible.builtin.command: >
+        /usr/bin/install -D -o root -g root -m 644 /tmp/docker.gpg /etc/apt/keyrings/docker.gpg
+      register: result
+      changed_when: false
+      failed_when: result.rc != 0
+
+    - name: create docker repo
+      ansible.builtin.apt_repository:
+        repo: |
+          deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.gpg]
+          https://download.docker.com/linux/{{ ansible_distribution | lower }}
+          {{ ansible_distribution_release }} stable
+        filename: docker
+        state: present
+
+    - name: install docker and docker-compose
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker-ce
+        - docker-ce-cli
+        - containerd.io
+        - docker-compose-plugin
+
+    - name: remove /tmp/{{ ansible_distribution | lower }}.docker.gpg
+      ansible.builtin.file:
+        path: /tmp/{{ ansible_distribution | lower }}.docker.gpg
+        state: absent
+
+    - name: remove /tmp/docker.gpg
+      ansible.builtin.file:
+        path: /tmp/docker.gpg
+        state: absent
