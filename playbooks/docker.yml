@@ -49,12 +49,10 @@
         - containerd.io
         - docker-compose-plugin
 
-    - name: remove /tmp/{{ ansible_distribution | lower }}.docker.gpg
+    - name: remove temporary files
       ansible.builtin.file:
-        path: /tmp/{{ ansible_distribution | lower }}.docker.gpg
+        path: "{{ item }}"
         state: absent
-
-    - name: remove /tmp/docker.gpg
-      ansible.builtin.file:
-        path: /tmp/docker.gpg
-        state: absent
+      loop:
+        - "/tmp/{{ ansible_distribution | lower }}.docker.gpg"
+        - /tmp/docker.gpg

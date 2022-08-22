@@ -45,12 +45,10 @@
         - apt-transport-https
         - code
 
-    - name: remove /tmp/microsoft.asc
+    - name: remove temporary files
       ansible.builtin.file:
-        path: /tmp/microsoft.asc
+        path: "{{ item }}"
         state: absent
-
-    - name: remove /tmp/packages.microsoft.gpg
-      ansible.builtin.file:
-        path: /tmp/packages.microsoft.gpg
-        state: absent
+      loop:
+        - /tmp/microsoft.asc
+        - /tmp/packages.microsoft.gpg
