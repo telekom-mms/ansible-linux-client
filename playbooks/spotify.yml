@@ -1,0 +1,53 @@
+---
+# ansible-playbook playbooks/spotify.yml -K
+
+- hosts: localhost
+  become: true
+  become_method: sudo
+  tasks:
+    - name: get url to configure the spotify repository
+      ansible.builtin.shell: |
+        curl -sL https://www.spotify.com/us/download/linux/ | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | grep pubkey
+      register: spotify_gpg_url
+
+    - name: download spotify gpg pubkey to tmp destination
+      ansible.builtin.get_url:
+        url: "{{ spotify_gpg_url.stdout }}"
+        dest: /tmp/spotify
+        mode: 0644
+        force: true
+
+    - name: extract gpg key to spotify.gpg
+      ansible.builtin.shell: >
+        set -o pipefail |
+        /usr/bin/cat /tmp/spotify | gpg --dearmor > /tmp/spotify.gpg
+      register: result
+      changed_when: false
+      failed_when: result.rc != 0
+
+    - name: import spotify.gpg to /etc/apt/keyrings/spotify.gpg
+      ansible.builtin.command: >
+        /usr/bin/install -D -o root -g root -m 644 /tmp/spotify.gpg /etc/apt/keyrings/spotify.gpg
+      register: result
+      changed_when: false
+      failed_when: result.rc != 0
+
+    - name: enable the spotify repository
+      ansible.builtin.apt_repository:
+        repo: "deb [signed-by=/etc/apt/keyrings/spotify.gpg] http://repository.spotify.com stable non-free"
+        filename: spotify
+        state: present
+
+    - name: update repositories cache and install "spotify" package
+      ansible.builtin.apt:
+        name: spotify-client
+        update_cache: true
+        state: present
+
+    - name: remove /tmp/spotify* files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - "/tmp/spotify"
+        - "/tmp/spotify.gpg"

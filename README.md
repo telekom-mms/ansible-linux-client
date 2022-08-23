@@ -39,6 +39,7 @@ chmod +x setup.sh
 | install_zsh | no | false | install zsh
 | install_ferdium | no | false | install latest release of ferdium
 | install_docker | no | false | install docker
+| install_spotify| no | false | install spotify
 | packages | no | ["git"] | install a list of packages
 | packages_activate_wakemeops_repo | no| false | activate the WakeMeOps repo<br>install packages over variable packages<br>see also: https://docs.wakemeops.com/packages/
 

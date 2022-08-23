@@ -18,3 +18,7 @@
 - name: include packages playbook
   ansible.builtin.import_playbook: packages.yml
   when: packages is defined
+
+- name: include spotify playbook
+  ansible.builtin.import_playbook: spotify.yml
+  when: install_spotify | bool
