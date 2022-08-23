@@ -10,7 +10,7 @@
         curl -sL https://www.spotify.com/us/download/linux/ | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | grep pubkey
       register: spotify_gpg_url
 
-    - name: download spotify to tmp destination
+    - name: download spotify gpg pubkey to tmp destination
       ansible.builtin.get_url:
         url: "{{ spotify_gpg_url.stdout }}"
         dest: /tmp/spotify
