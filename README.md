@@ -2,6 +2,10 @@
 ## Description
 This repository give you the option to install and configure your linux client with ansible.
 
+## Scope
+This repo should help you to manage your linux client with ansible. All is optional - nothing is duty. 
+Feel free to add new software and configuration to the repo. 
+
 ## Usage
 ```bash
 # clone the project
@@ -40,6 +44,7 @@ chmod +x setup.sh
 
 ## Author Information
 * Christopher Grau
+* Daniel Uhlmann
 
 ## License
 
