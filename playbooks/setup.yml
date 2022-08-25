@@ -22,3 +22,7 @@
 - name: include spotify playbook
   ansible.builtin.import_playbook: spotify.yml
   when: install_spotify | bool
+
+- name: include chrome playbook
+  ansible.builtin.import_playbook: chrome.yml
+  when: install_chrome | bool
