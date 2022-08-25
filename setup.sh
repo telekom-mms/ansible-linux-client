@@ -22,6 +22,6 @@ elif [ ! -s vars/main.yml ]; then
     exit 2
 fi
 
-echo -e "\e[1;31msetup linux client with ansible"
+echo -e "\e[1;31msetup linux client with ansible\e[0m"
 source ~/.ansible-venv/bin/activate
 ansible-playbook playbooks/setup.yml --diff -v -e @defaults/main.yml -e @vars/main.yml
