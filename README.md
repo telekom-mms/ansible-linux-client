@@ -3,11 +3,15 @@
 This repository give you the option to install and configure your linux client with ansible.
 
 ## Scope
-This repo should help you to manage your linux client with ansible. All is optional - nothing is duty. 
-Feel free to add new software and configuration to the repo. 
+This repo should help you to manage your linux client with ansible. All is optional - nothing is duty.
+Feel free to add new software and configuration to the repo.
 
 ## Usage
 ```bash
+# install git on your client
+sudo apt update
+sudo apt install git
+
 # clone the project
 git clone https://git.mms-support.de/crgr/linux-client-ansible.git
 
@@ -21,7 +25,7 @@ install_vscode: true
 install_ferdium: true
 
 packages:
-  - git
+  - htop
 
 EOF
 
