@@ -17,8 +17,11 @@ pip install yamllint
 if [ ! -f vars/main.yml ]; then
     echo -e "\e[1;31mPlease define your custom configuration at $(pwd)/vars/main.yml\e[0m"
     exit 2
+elif [ ! -s vars/main.yml ]; then
+    echo -e "\e[1;31mPlease define your custom configuration at $(pwd)/vars/main.yml\e[0m"
+    exit 2
 fi
 
-echo "setup linux client with ansible"
+echo -e "\e[1;31msetup linux client with ansible\e[0m"
 source ~/.ansible-venv/bin/activate
 ansible-playbook playbooks/setup.yml --diff -v -e @defaults/main.yml -e @vars/main.yml

@@ -5,10 +5,7 @@ install_ferdium: false
 install_zsh: false
 install_docker: false
 install_spotify: false
-
-# install a list of packages
-packages:
-  - git
+install_chrome: false
 
 # activate wakemeops - https://docs.wakemeops.com/packages/
 packages_activate_wakemeops_repo: false
