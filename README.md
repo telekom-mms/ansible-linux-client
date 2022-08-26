@@ -13,7 +13,7 @@ sudo apt update
 sudo apt install git
 
 # clone the project
-git clone https://git.mms-support.de/7001-07/shared/linux-client-ansible.git
+git clone https://git.mms-support.de/shared/ansible/linux-client-ansible.git
 
 # switch to the project folder
 cd linux-client-ansible/
@@ -45,7 +45,7 @@ chmod +x setup.sh
 | install_docker | no | false | install docker
 | install_spotify| no | false | install spotify
 | install_chrome | no | false | install google chrome
-| packages | no || install a list of packages
+| packages | no | - | install a list of packages
 | packages_activate_wakemeops_repo | no| false | activate the WakeMeOps repo<br>install packages over variable packages<br>see also: https://docs.wakemeops.com/packages/
 
 ## Author Information
