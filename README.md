@@ -13,7 +13,7 @@ sudo apt update
 sudo apt install git
 
 # clone the project
-git clone https://git.mms-support.de/shared/ansible/linux-client-ansible.git
+git clone https://github.com/T-Systems-MMS/ansible-linux-client.git
 
 # switch to the project folder
 cd linux-client-ansible/
