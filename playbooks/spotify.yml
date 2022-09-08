@@ -5,10 +5,13 @@
   become: true
   become_method: sudo
   tasks:
-    - name: get url to configure the spotify repository
-      ansible.builtin.shell: |
+    - name: get url to configure the spotify repository # noqa command-instead-of-module
+      ansible.builtin.shell: >
+        set -o pipefail |
         curl -sL https://www.spotify.com/us/download/linux/ | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | grep pubkey
       register: spotify_gpg_url
+      changed_when: false
+      failed_when: spotify_gpg_url.rc != 0
 
     - name: download spotify gpg pubkey to tmp destination
       ansible.builtin.get_url:

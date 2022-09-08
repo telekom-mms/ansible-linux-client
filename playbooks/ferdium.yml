@@ -11,7 +11,7 @@
       register: ferdium_version
       changed_when: false
       failed_when: ferdium_version.rc != 0
-      
+
     - name: download and install ferdium package
       ansible.builtin.apt:
         deb: https://github.com/ferdium/ferdium-app/releases/download/v{{ ferdium_version.stdout }}/Ferdium-linux-{{ ferdium_version.stdout }}-amd64.deb
