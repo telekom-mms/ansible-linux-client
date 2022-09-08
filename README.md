@@ -16,7 +16,7 @@ sudo apt install git
 git clone https://github.com/T-Systems-MMS/ansible-linux-client.git
 
 # switch to the project folder
-cd linux-client-ansible/
+cd ansible-linux-client/
 
 # define what you want to install
 cat <<EOF > vars/main.yml
