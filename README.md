@@ -1,4 +1,4 @@
-# linux-client-ansible
+# ansible-linux-client
 ## Description
 This repository give you the option to install and configure your linux client with ansible.
 
