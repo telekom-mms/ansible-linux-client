@@ -3,7 +3,7 @@
   become: true
   become_method: sudo
   tasks:
-    - name: install WakeMeOps repo and gpg key
+    - name: Install WakeMeOps repo and gpg key
       ansible.builtin.shell: >
         set -o pipefail |
         curl -sSL https://raw.githubusercontent.com/upciti/wakemeops/main/assets/install_repository | bash
@@ -11,7 +11,7 @@
       changed_when: false
       failed_when: result.rc != 0
       when: packages_activate_wakemeops_repo
-    - name: install a list of packages
+    - name: Install a list of packages
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present

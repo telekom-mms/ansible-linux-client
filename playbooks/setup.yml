@@ -1,28 +1,28 @@
 ---
-- name: include vscode playbook
+- name: Include vscode playbook
   ansible.builtin.import_playbook: vscode.yml
   when: install_vscode | bool
 
-- name: include zsh playbook
+- name: Include zsh playbook
   ansible.builtin.import_playbook: zsh.yml
   when: install_zsh | bool
 
-- name: include ferdium playbook
+- name: Include ferdium playbook
   ansible.builtin.import_playbook: ferdium.yml
   when: install_ferdium | bool
 
-- name: include docker playbook
+- name: Include docker playbook
   ansible.builtin.import_playbook: docker.yml
   when: install_docker | bool
 
-- name: include packages playbook
+- name: Include packages playbook
   ansible.builtin.import_playbook: packages.yml
   when: packages is defined
 
-- name: include spotify playbook
+- name: Include spotify playbook
   ansible.builtin.import_playbook: spotify.yml
   when: install_spotify | bool
 
-- name: include chrome playbook
+- name: Include chrome playbook
   ansible.builtin.import_playbook: chrome.yml
   when: install_chrome | bool
