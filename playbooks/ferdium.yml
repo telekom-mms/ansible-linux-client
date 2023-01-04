@@ -3,7 +3,7 @@
   become: true
   become_method: sudo
   tasks:
-    - name: get latest ferdium release # noqa command-instead-of-module
+    - name: Get latest ferdium release # noqa command-instead-of-module
       ansible.builtin.shell: >
         set -o pipefail |
         curl -s -L https://api.github.com/repos/ferdium/ferdium-app/releases/latest
@@ -12,7 +12,7 @@
       changed_when: false
       failed_when: ferdium_version.rc != 0
 
-    - name: download and install ferdium package
+    - name: Download and install ferdium package
       ansible.builtin.apt:
         deb: https://github.com/ferdium/ferdium-app/releases/download/v{{ ferdium_version.stdout }}/Ferdium-linux-{{ ferdium_version.stdout }}-amd64.deb
         state: present

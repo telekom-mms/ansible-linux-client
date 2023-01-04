@@ -4,6 +4,6 @@
   become: true
   become_method: sudo
   tasks:
-    - name: test
+    - name: Test
       ansible.builtin.debug:
         msg: "test"

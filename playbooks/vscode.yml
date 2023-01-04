@@ -3,19 +3,19 @@
   become: true
   become_method: sudo
   tasks:
-    - name: install gpg
+    - name: Install gpg
       ansible.builtin.apt:
         name: gpg
         state: present
         update_cache: true
 
-    - name: download vscode microsoft.asc
+    - name: Download vscode microsoft.asc
       ansible.builtin.get_url:
         url: https://packages.microsoft.com/keys/microsoft.asc
         dest: /tmp/microsoft.asc
         mode: 0644
 
-    - name: extract gpg key to packages.microsoft.gpg
+    - name: Extract gpg key to packages.microsoft.gpg
       ansible.builtin.shell: >
         set -o pipefail |
         /usr/bin/cat /tmp/microsoft.asc | gpg --dearmor > /tmp/packages.microsoft.gpg
@@ -23,20 +23,20 @@
       changed_when: false
       failed_when: result.rc != 0
 
-    - name: import packages.microsoft.gpg to /etc/apt/keyrings/packages.microsoft.gpg
+    - name: Import packages.microsoft.gpg to /etc/apt/keyrings/packages.microsoft.gpg
       ansible.builtin.command: >
         /usr/bin/install -D -o root -g root -m 644 /tmp/packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
       register: result
       changed_when: false
       failed_when: result.rc != 0
 
-    - name: create vscode repo
+    - name: Create vscode repo
       ansible.builtin.apt_repository:
         repo: "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main"
         filename: vscode
         state: present
 
-    - name: install vscode and apt-transport-https
+    - name: Install vscode and apt-transport-https
       ansible.builtin.apt:
         name: "{{ item }}"
         state: present
@@ -45,7 +45,7 @@
         - apt-transport-https
         - code
 
-    - name: remove temporary files
+    - name: Remove temporary files
       ansible.builtin.file:
         path: "{{ item }}"
         state: absent
