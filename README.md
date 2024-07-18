@@ -40,6 +40,7 @@ chmod +x setup.sh
 | Variable                                   | Required | Default                | Description
 |--------------------------------------------|----------|------------------------|------------
 | install_vscode | no | false | install vscode
+| install_zed | no | false | install zed
 | install_zsh | no | false | install zsh
 | install_ferdium | no | false | install latest release of ferdium
 | install_docker | no | false | install docker

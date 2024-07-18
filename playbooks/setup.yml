@@ -3,6 +3,10 @@
   ansible.builtin.import_playbook: vscode.yml
   when: install_vscode | bool
 
+- name: Include zed playbook
+  ansible.builtin.import_playbook: zed.yml
+  when: install_zed | bool
+
 - name: Include zsh playbook
   ansible.builtin.import_playbook: zsh.yml
   when: install_zsh | bool
