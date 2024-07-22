@@ -1,0 +1,5 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Install zed via install script
+      shell: curl -f https://zed.dev/install.sh | sh

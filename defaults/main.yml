@@ -1,6 +1,7 @@
 ---
 # install applications with pre-defined playbooks
 install_vscode: false
+install_zed: false
 install_ferdium: false
 install_zsh: false
 install_docker: false
