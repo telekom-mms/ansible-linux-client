@@ -3,7 +3,7 @@
 echo -e "\e[1;31minstall python3 to create a virtualenv\e[0m"
 
 sudo apt-get update
-sudo apt-get install python3 -y
+sudo apt-get install python3 python3-venv -y
 
 echo -e "\e[1;31mcreate ansible virtualenv in home dir\e[0m"
 
