@@ -7,6 +7,7 @@ install_zsh: false
 install_docker: false
 install_spotify: false
 install_chrome: false
+install_restic: false
 
 # activate wakemeops - https://docs.wakemeops.com/packages/
 packages_activate_wakemeops_repo: false
