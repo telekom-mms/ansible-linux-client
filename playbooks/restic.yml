@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  become: true
+  become_method: sudo
+  tasks:
+    - name: Get latest restic release  # noqa command-instead-of-module
+      ansible.builtin.shell: >
+        set -o pipefail |
+        curl -s -L https://api.github.com/repos/restic/restic/releases/latest
+        | grep -Po '"tag_name": "\K.*?(?=\")' | cut -d"v" -f2
+      register: restic_version
+      changed_when: false
+      failed_when: restic_version.rc != 0
+
+    - name: Download and install ferdium package
+      ansible.builtin.get_url:
+        url: https://github.com/restic/restic/releases/download/v{{ restic_version.stdout }}/restic_{{ restic_version.stdout }}_linux_amd64.bz2
+        dest: /tmp/restic.bz2
+
+    - name: decompress restic
+      ansible.builtin.command: /usr/bin/bunzip2 /tmp/restic.bz2
+
+    - name: move restic file to /usr/local/bin
+      ansible.builtin.copy:
+        remote_src: true
+        src: /tmp/restic
+        dest: /usr/local/bin/restic
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Cleanup temporary files
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /tmp/restic.bz2
+        - /tmp/restic

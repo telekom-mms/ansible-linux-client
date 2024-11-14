@@ -30,3 +30,7 @@
 - name: Include chrome playbook
   ansible.builtin.import_playbook: chrome.yml
   when: install_chrome | bool
+
+- name: Include restic playbook
+  ansible.builtin.import_playbook: restic.yml
+  when: install_restic | bool
