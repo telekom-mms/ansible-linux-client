@@ -34,3 +34,7 @@
 - name: Include restic playbook
   ansible.builtin.import_playbook: restic.yml
   when: install_restic | bool
+
+- name: Include aws-cli playbook
+  ansible.builtin.import_playbook: aws_cli.yml
+  when: install_aws_cli | bool

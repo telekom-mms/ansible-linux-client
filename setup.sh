@@ -24,4 +24,5 @@ fi
 
 echo -e "\e[1;31msetup linux client with ansible\e[0m"
 source ~/.ansible-venv/bin/activate
+ansible-galaxy collection install community.general -p ./collections --force
 ansible-playbook playbooks/setup.yml --diff -v -e @defaults/main.yml -e @vars/main.yml
